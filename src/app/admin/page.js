@@ -1,41 +1,71 @@
 "use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const AdminDashboard = () => {
   const router = useRouter();
+  const [ngos, setNgos] = useState([]); // NGOs should be an array
   const [activeTab, setActiveTab] = useState("dashboard");
 
-  // Hardcoded NGO data
-  const ngos = [
-    {
-      id: 1,
-      name: "Green Earth Initiative",
-      email: "contact@greenearth.org",
-      registrationDate: "2023-01-15",
-      status: "Active",
-      projects: 5,
-    },
-    {
-      id: 2,
-      name: "Hope for Children Foundation",
-      email: "info@hopeforchildren.org",
-      registrationDate: "2022-11-03",
-      status: "Active",
-      projects: 8,
-    },
-    {
-      id: 3,
-      name: "Urban Health Alliance",
-      email: "support@urbanhealth.org",
-      registrationDate: "2023-03-22",
-      status: "Pending",
-      projects: 2,
-    },
-  ];
+  useEffect(() => {
+    const fetchNGOs = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/getallngo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
 
+        if (data.success) {
+          const formattedNGOs = data.data.map((ngo, index) => ({
+            id: ngo._id || index + 1,
+            name: ngo.name || "Unknown NGO",
+            email: ngo.email || "notavailable@example.com",
+            registrationDate: ngo.registrationDate || "2023-01-01",
+            status: ngo.status || "Active",
+            projects: ngo.projects || 0,
+          }));
+
+          setNgos(formattedNGOs);
+        }
+      } catch (error) {
+        console.error("Error fetching NGOs:", error);
+      }
+    };
+
+    fetchNGOs();
+  }, []); // Runs once on mount
+
+  const addNGO = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/addngo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Default NGO",
+          email: "notavailable@example.com",
+          registrationDate: "2023-01-01",
+          status: "Pending",
+          projects: 0,
+        }),
+      });
+
+      const result = await response.json();
+      console.log("Response:", result);
+
+      // Refetch the NGOs list after adding a new one
+      if (result.success) {
+        fetchNGOs();
+      }
+    } catch (error) {
+      console.error("Error adding NGO:", error);
+    }
+  };
   const handleLogout = () => {
     router.push("/");
   };
