@@ -1,3 +1,6 @@
+/* Import Google font first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Then import Tailwind */
 @import "tailwindcss";
 
 :root {
@@ -19,8 +22,488 @@
   }
 }
 
+/* Animations and custom utilities */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blob {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1); 
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  25% { 
+    transform: translate(20px, -30px) scale(1.1); 
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% { 
+    transform: translate(-20px, 20px) scale(0.9); 
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  75% { 
+    transform: translate(20px, 40px) scale(1.05);
+    border-radius: 60% 40% 50% 50% / 30% 60% 40% 70%; 
+  }
+}
+
+@keyframes text-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 1s ease forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+.animate-blob {
+  animation: blob 10s ease-in-out infinite;
+}
+
+.animate-text-gradient {
+  background-size: 200% auto;
+  animation: text-gradient 4s ease infinite;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animation-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
+
+/* Better button and link interactions */
+button, a {
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom Sign In Button Styling */
+.custom-sign-in a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  font-weight: 500;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.custom-sign-in a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s ease;
+}
+
+.custom-sign-in a:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.3), 0 4px 6px -2px rgba(34, 197, 94, 0.2);
+}
+
+.custom-sign-in a:hover::before {
+  left: 100%;
+}
+
+.custom-sign-in a:active {
+  transform: translateY(1px);
+}
+
+/* Enhanced Button Focus States */
+button:focus, a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5);
+}
+
+/* Underline animation for nav links */
+.after\:absolute::after {
+  position: absolute;
+  content: '';
+  transition: all 0.3s ease;
+}
+
+.after\:h-0\.5::after {
+  height: 2px;
+}
+
+.after\:w-0::after {
+  width: 0;
+}
+
+.after\:bg-green-500::after {
+  background-color: #22c55e;
+}
+
+.after\:bottom-0::after {
+  bottom: -4px;
+}
+
+.after\:left-0::after {
+  left: 0;
+}
+
+.hover\:after\:w-full:hover::after {
+  width: 100%;
+}
+
+/* Add subtle animations on scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-on-scroll {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reveal animations on scroll */
+.pre-animate-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Interactive hover effects */
+.scale-on-hover {
+  transition: transform 0.3s ease;
+}
+
+.scale-on-hover:hover {
+  transform: scale(1.05);
+}
+
+.pulse-on-hover:hover {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.rotate-hover:hover {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Enhanced feature cards */
+.feature-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 9999px;
+  background-color: rgba(34, 197, 94, 0.1);
+  color: rgb(34, 197, 94);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  background-color: rgba(34, 197, 94, 0.2);
+  transform: scale(1.1);
+}
+
+/* Button styles */
+.btn-primary {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border-radius: 9999px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.3), 0 4px 6px -2px rgba(34, 197, 94, 0.2);
+}
+
+.btn-secondary {
+  padding: 1rem 2rem;
+  background-color: white;
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 197, 94, 0.6);
+  background-color: rgba(34, 197, 94, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Shine effect for sign in button */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  20%, 100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* Staggered animation for features */
+.staggered-animation .scroll-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--delay, 0ms);
+}
+
+.animate-reveal .staggered-animation .scroll-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll reveal animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate-reveal .scroll-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add these professional enhancements to your globals.css */
+
+@keyframes spin-faster {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(720deg); }
+}
+
+@keyframes float-refined {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.97); }
+}
+
+/* Enhanced CTA buttons */
+.cta-primary {
+  position: relative;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 1;
+}
+
+.cta-primary:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(34, 197, 94, 0.4);
+}
+
+.cta-primary:hover:before {
+  opacity: 1;
+}
+
+.cta-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+}
+
+.cta-secondary {
+  position: relative;
+  padding: 1rem 2.5rem;
+  background-color: white;
+  color: #16a34a;
+  border: 2px solid rgba(34, 197, 94, 0.2);
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cta-secondary:hover {
+  transform: translateY(-3px);
+  border-color: rgba(34, 197, 94, 0.5);
+  background-color: rgba(34, 197, 94, 0.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cta-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Professional feature cards */
+.feature-card-pro {
+  position: relative;
+  background-color: white;
+  padding: 2.5rem 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(34, 197, 94, 0.1);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.feature-card-pro:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to right, #22c55e, #10b981);
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: -1;
+}
+
+.feature-card-pro:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.feature-card-pro:hover:before {
+  transform: translateY(0);
+}
+
+.feature-icon-pro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+  color: #22c55e;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.feature-card-pro:hover .feature-icon-pro {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.2));
+  transform: scale(1.1) rotate(5deg);
+  color: #15803d;
+}
+
