@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from "@clerk/nextjs";
+import EcoInfoDashboard from '@/components/EcoInfoDashboard';
 
 function NGODashboard() {
   const { userId } = useAuth();
@@ -105,8 +106,8 @@ function NGODashboard() {
             
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               {error && (
-                <div className="p-4 bg-red-100 text-amber-300">
-                  Please complete your registration
+                <div className="p-4 flex justify-center items-center bg-green-500 text-white-300">
+                  Please complete your NGO registration
                 </div>
               )}
               
@@ -177,7 +178,7 @@ function NGODashboard() {
   // Show dashboard if user exists
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 p-6">
-      <h1>hello</h1>
+      <EcoInfoDashboard/>
     </div>
   );
 }
