@@ -72,7 +72,7 @@ const AdminDashboard = () => {
 
   const openRobotMonitor = () => {
     window.open(
-      "http://localhost:3001/meeting/692e25b8-db13-46f4-9c3a-bb56474eebdd",
+      "https://project-eight-black-46.vercel.app/meeting/9580e1f5-530b-43b8-8f89-8c760cdcd0f7",
       "_blank"
     );
   };
