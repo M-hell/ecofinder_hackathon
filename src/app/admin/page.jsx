@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 // import { useRouter } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { Auth } from "@/components/auth";
 const AdminDashboard = () => {
   const router = useRouter();
   const [ngos, setNgos] = useState([]); // NGOs should be an array
@@ -122,7 +123,7 @@ const AdminDashboard = () => {
         }
       `}</style>
 
-      <div className="min-h-screen bg-gradient-to-br from-mint-50 via-green-50 to-mint-100 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-mint-50 bg-green-100 to-mint-100 relative overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden z-0 opacity-30">
           <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-green-200 animate-[float_15s_ease-in-out_infinite]"></div>
@@ -131,7 +132,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Sidebar - lightened colors */}
-        <div className="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-green-500 to-green-600 text-white shadow-lg z-10">
+        <div className="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-green-400 to-green-100 text-black shadow-lg z-10">
           <div className="flex items-center justify-center h-16 px-4 border-b border-green-400">
             <h1 className="text-xl font-bold shine-effect">Community Connect</h1>
           </div>
@@ -140,7 +141,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab("dashboard")}
               className={`flex items-center w-full px-4 py-3 rounded-lg mb-2 transition-all transform hover:scale-105 ${
                 activeTab === "dashboard" 
-                  ? "bg-green-400 text-white shadow-md" 
+                  ? "bg-green-400 text-black shadow-md" 
                   : "hover:bg-green-400/40"
               }`}
             >
@@ -153,7 +154,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab("ngos")}
               className={`flex items-center w-full px-4 py-3 rounded-lg mb-2 transition-all transform hover:scale-105 ${
                 activeTab === "ngos" 
-                  ? "bg-green-400 text-white shadow-md" 
+                  ? "bg-green-400 text-black shadow-md" 
                   : "hover:bg-green-400/40"
               }`}
             >
@@ -166,7 +167,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab("robotics")}
               className={`flex items-center w-full px-4 py-3 rounded-lg mb-2 transition-all transform hover:scale-105 ${
                 activeTab === "robotics" 
-                  ? "bg-green-400 text-white shadow-md" 
+                  ? "bg-green-400 text-black shadow-md" 
                   : "hover:bg-green-400/40"
               }`}
             >
@@ -174,15 +175,6 @@ const AdminDashboard = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
               </svg>
               Robotics Monitoring
-            </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center w-full px-4 py-3 rounded-lg mb-2 hover:bg-green-400/40 transition-all transform hover:scale-105 mt-8"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              Logout
             </button>
           </nav>
         </div>
@@ -203,11 +195,8 @@ const AdminDashboard = () => {
                 </svg>
                 <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
               </div>
-              <div className="flex items-center bg-white/60 backdrop-blur-sm rounded-full py-1 pl-1 pr-4 shadow-md hover:shadow-lg transition-all">
-                <div className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center text-white font-medium">
-                  AD
-                </div>
-                <span className="ml-2 text-gray-700">Admin User</span>
+              <div className="flex justify-center items-center">
+                <span> <Auth/> </span>
               </div>
             </div>
           </div>
@@ -256,8 +245,8 @@ const AdminDashboard = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-500">{card.title}</p>
-                        <h3 className="text-3xl font-bold mt-1">{card.value}</h3>
+                        <p className="text-black">{card.title}</p>
+                        <h3 className="text-3xl text-black font-bold mt-1">{card.value}</h3>
                         <p className="text-sm text-green-500 mt-2 flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
@@ -275,16 +264,16 @@ const AdminDashboard = () => {
 
               {/* Quick Actions */}
               <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-md p-6 hover:shadow-lg transition-all">
-                <h3 className="text-lg font-medium text-gray-800 mb-4">
+                <h3 className="text-lg font-medium text-black mb-4">
                   Quick Actions
                 </h3>
                 <div className="grid grid-cols-2 gap-6">
                   <button
                     onClick={() => setActiveTab("robotics")}
-                    className="shine-effect flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-400 hover:to-green-500 hover:text-white transition-all group transform hover:-translate-y-1"
+                    className="shine-effect flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-400 hover:to-green-500 text-black hover:text-black transition-all group transform hover:-translate-y-1"
                   >
                     <div className="bg-green-100 p-3 rounded-lg group-hover:bg-white/20 transition-colors mr-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 group-hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
@@ -292,10 +281,10 @@ const AdminDashboard = () => {
                   </button>
                   <button
                     onClick={() => router.push("/garbage")}
-                    className="shine-effect flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-400 hover:to-green-500 hover:text-white transition-all group transform hover:-translate-y-1"
+                    className="shine-effect flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-400 hover:to-green-500 text-black hover:text-black transition-all group transform hover:-translate-y-1"
                   >
                     <div className="bg-green-100 p-3 rounded-lg group-hover:bg-white/20 transition-colors mr-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 group-hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
@@ -340,7 +329,7 @@ const AdminDashboard = () => {
                         {activity.icon}
                       </div>
                       <div>
-                        <p className="font-medium">{activity.title}</p>
+                        <p className="font-medium text-black">{activity.title}</p>
                         <p className="text-sm text-gray-500">{activity.desc}</p>
                         <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
                       </div>
@@ -357,7 +346,7 @@ const AdminDashboard = () => {
               <div className="p-6 border-b border-gray-200">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-medium text-gray-800">Registered NGOs</h3>
-                  <button className="shine-effect bg-gradient-to-r from-green-400 to-green-500 text-white py-2 px-4 rounded-md text-sm flex items-center transform hover:scale-105 transition-transform">
+                  <button className="shine-effect bg-gradient-to-r from-green-400 to-green-500 text-black py-2 px-4 rounded-md text-sm flex items-center transform hover:scale-105 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
@@ -414,7 +403,7 @@ const AdminDashboard = () => {
                 <h3 className="text-lg font-medium text-gray-800">Robotic Vehicle Monitoring</h3>
                 <button
                   onClick={openRobotMonitor}
-                  className="shine-effect bg-gradient-to-r from-green-400 to-green-500 text-white py-2 px-4 rounded-md text-sm flex items-center transform hover:scale-105 transition-transform"
+                  className="shine-effect bg-gradient-to-r from-green-400 to-green-500 text-black py-2 px-4 rounded-md text-sm flex items-center transform hover:scale-105 transition-transform"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -435,11 +424,11 @@ const AdminDashboard = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">In Maintenance</span>
-                      <span className="font-medium">2</span>
+                      <span className="font-medium text-black">2</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Available</span>
-                      <span className="font-medium">3</span>
+                      <span className="font-medium text-black">3</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Battery Levels</span>
