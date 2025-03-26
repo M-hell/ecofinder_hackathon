@@ -1,11 +1,11 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Head from "next/head";
-
+import { useState, useEffect } from "react";
+// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 const AdminDashboard = () => {
   const router = useRouter();
+  const [ngos, setNgos] = useState([]); // NGOs should be an array
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -14,40 +14,73 @@ const AdminDashboard = () => {
     setIsLoaded(true);
   }, []);
 
-  // Hardcoded NGO data
-  const ngos = [
-    {
-      id: 1,
-      name: "Green Earth Initiative",
-      email: "contact@greenearth.org",
-      registrationDate: "2023-01-15",
-      status: "Active",
-      projects: 5,
-    },
-    {
-      id: 2,
-      name: "Hope for Children Foundation",
-      email: "info@hopeforchildren.org",
-      registrationDate: "2022-11-03",
-      status: "Active",
-      projects: 8,
-    },
-    {
-      id: 3,
-      name: "Urban Health Alliance",
-      email: "support@urbanhealth.org",
-      registrationDate: "2023-03-22",
-      status: "Pending",
-      projects: 2,
-    },
-  ];
+  useEffect(() => {
+    const fetchNGOs = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/getallngo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
 
+        if (data.success) {
+          const formattedNGOs = data.data.map((ngo, index) => ({
+            id: ngo._id || index + 1,
+            name: ngo.name || "Unknown NGO",
+            email: ngo.email || "notavailable@example.com",
+            registrationDate: ngo.registrationDate || "2023-01-01",
+            status: ngo.status || "Active",
+            projects: ngo.projects || 0,
+          }));
+
+          setNgos(formattedNGOs);
+        }
+      } catch (error) {
+        console.error("Error fetching NGOs:", error);
+      }
+    };
+
+    fetchNGOs();
+  }, []); // Runs once on mount
+
+  const addNGO = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/addngo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Default NGO",
+          email: "notavailable@example.com",
+          registrationDate: "2023-01-01",
+          status: "Pending",
+          projects: 0,
+        }),
+      });
+
+      const result = await response.json();
+      console.log("Response:", result);
+
+      // Refetch the NGOs list after adding a new one
+      if (result.success) {
+        fetchNGOs();
+      }
+    } catch (error) {
+      console.error("Error adding NGO:", error);
+    }
+  };
   const handleLogout = () => {
     router.push("/");
   };
 
   const openRobotMonitor = () => {
-    window.open("https://example-robot-monitor.com", "_blank");
+    window.open(
+      "https://project-eight-black-46.vercel.app/meeting/9580e1f5-530b-43b8-8f89-8c760cdcd0f7",
+      "_blank"
+    );
   };
 
   return (
@@ -257,15 +290,7 @@ const AdminDashboard = () => {
                     </div>
                     Monitor Robotics
                   </button>
-                  
-                  <button
-                    className="shine-effect flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-400 hover:to-green-500 hover:text-white transition-all group transform hover:-translate-y-1"
-                  >
-                    <div className="bg-green-100 p-3 rounded-lg group-hover:bg-white/20 transition-colors mr-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                    </div>
+
                     Generate Report
                   </button>
                 </div>
