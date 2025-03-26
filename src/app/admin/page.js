@@ -1,8 +1,8 @@
 "use client";
 import Head from "next/head";
 import { useState, useEffect } from "react";
+// import { useRouter } from "next/navigation";
 import { useRouter } from "next/navigation";
-
 const AdminDashboard = () => {
   const router = useRouter();
   const [ngos, setNgos] = useState([]); // NGOs should be an array
@@ -71,7 +71,10 @@ const AdminDashboard = () => {
   };
 
   const openRobotMonitor = () => {
-    window.open("https://example-robot-monitor.com", "_blank");
+    window.open(
+      "http://localhost:3001/meeting/692e25b8-db13-46f4-9c3a-bb56474eebdd",
+      "_blank"
+    );
   };
 
   return (
@@ -348,7 +351,11 @@ const AdminDashboard = () => {
                     </svg>
                     Monitor Robotics
                   </button>
-                  <button className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors">
+                  {/* onclick redicrect to garbage */}
+                  <button
+                    onClick={() => router.push("/garbage")} // ✅ Fix: Use arrow function
+                    className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 mr-2 text-blue-600"
