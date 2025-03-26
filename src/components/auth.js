@@ -6,7 +6,7 @@ export const Auth = () => {
       <SignedOut>
         <SignInButton>
           {/* <Button>Sign in</Button> */}
-          sign in
+          <div className="text-black">Sign in</div>
         </SignInButton>
       </SignedOut>
       <SignedIn>
