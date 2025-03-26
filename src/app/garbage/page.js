@@ -77,7 +77,7 @@ function NGODashboard() {
     try {
       setGarbageLoading(true);
       setGarbageError(null);
-      const response = await axios.post("http://localhost:3000/api/getgarbage");
+      const response = await axios.post("/api/getgarbage");
       setGarbageData([...hardcodedGarbage, ...response.data]);
     } catch (err) {
       setGarbageError(err.message);

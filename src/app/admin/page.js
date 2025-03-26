@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchNGOs = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/getallngo", {
+        const response = await fetch("/api/getallngo", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -290,7 +290,15 @@ const AdminDashboard = () => {
                     </div>
                     Monitor Robotics
                   </button>
-
+                  <button
+                    onClick={() => router.push("/garbage")}
+                    className="shine-effect flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-400 hover:to-green-500 hover:text-white transition-all group transform hover:-translate-y-1"
+                  >
+                    <div className="bg-green-100 p-3 rounded-lg group-hover:bg-white/20 transition-colors mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
                     Generate Report
                   </button>
                 </div>
