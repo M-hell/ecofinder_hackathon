@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import EcoInfoDashboard from '@/components/EcoInfoDashboard';
 
@@ -12,9 +12,9 @@ function NGODashboard() {
   const [error, setError] = useState(null);
   const [registrationError, setRegistrationError] = useState(null);
   const [ngoData, setNgoData] = useState({
-    name: '',
-    location: '',
-    email: ''
+    name: "",
+    location: "",
+    email: "",
   });
 
   // Check if user exists in your database
@@ -22,13 +22,17 @@ function NGODashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.post('/api/ngodatafetch/check-user', {
-        clerkUserId: userId
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await axios.post(
+        "/api/ngodatafetch/check-user",
+        {
+          clerkUserId: userId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       setUserExists(response.data.exists);
       if (response.data.ngo) {
@@ -49,9 +53,9 @@ function NGODashboard() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNgoData(prev => ({
+    setNgoData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -59,11 +63,11 @@ function NGODashboard() {
     e.preventDefault();
     try {
       setRegistrationError(null);
-      const response = await axios.post('/api/ngodatafetch/register', {
+      const response = await axios.post("/api/ngodatafetch/register", {
         ...ngoData,
-        clerkUserId: userId
+        clerkUserId: userId,
       });
-      
+
       // After successful registration, check user again to get the full data
       await checkUserExists();
     } catch (err) {
@@ -89,8 +93,19 @@ function NGODashboard() {
         <header className="max-w-6xl mx-auto flex justify-between items-center mb-12">
           <div className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                />
               </svg>
             </div>
             <span className="text-xl font-bold text-gray-800">NGO Connect</span>
@@ -101,16 +116,18 @@ function NGODashboard() {
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-md mx-auto">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-6 text-white text-center">
               <h2 className="text-2xl font-bold">Register Your NGO</h2>
-              <p className="text-indigo-100">Complete your profile to continue</p>
+              <p className="text-indigo-100">
+                Complete your profile to continue
+              </p>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               {error && (
                 <div className="p-4 flex justify-center items-center bg-green-500 text-white-300">
                   Please complete your NGO registration
                 </div>
               )}
-              
+
               {registrationError && (
                 <div className="p-4 bg-red-100 text-red-700 rounded-lg">
                   {registrationError}
@@ -118,7 +135,10 @@ function NGODashboard() {
               )}
 
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   NGO Name
                 </label>
                 <input
@@ -131,9 +151,12 @@ function NGODashboard() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Email
                 </label>
                 <input
@@ -146,9 +169,12 @@ function NGODashboard() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="location"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Location
                 </label>
                 <input
@@ -161,7 +187,7 @@ function NGODashboard() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                 />
               </div>
-              
+
               <button
                 type="submit"
                 className="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition shadow-md"
